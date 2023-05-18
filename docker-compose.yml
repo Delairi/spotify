@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend-spotify:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4004:4004
+    container_name: backend-spotify
+    working_dir: /usr/app
+    environment:
+      - NODE_ENV=production
+      - CLIENT_ID_SPOTIFY=CLIENT_SECRET_SPOTIFY
+      - CLIENT_SECRET_SPOTIFY=CLIENT_SECRET_SPOTIFY
+      - DATABASE_URL=DATABASE_URL
+      - REDIS_URL=REDIS_URL
+    command: npm start
+
+  redis:
+    image: redis/redis-stack
+    ports:
+      - 6379:6379
+    container_name: redis-spotify
+    restart: always
+    volumes:
+      - ./cache:/data
+
+volumes:
+  cache:
