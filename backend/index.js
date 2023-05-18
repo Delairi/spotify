@@ -2,6 +2,7 @@ import express from 'express'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import cors from 'cors'
+import path from 'path'
 import routerGeneral from './routes/General.route.js'
 import dotenv from 'dotenv'
 import { ModelSpotifyQuery, ModelTokenSpotify, client } from './models/Redis.model.js'
@@ -34,14 +35,14 @@ const main = async () => {
 
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
-    app.use(express.static(__dirname + './dist'))
+    app.use(express.static(path.join(__dirname,'./dist')))
 
 
     app.use('/api/v1', UserToken, TokenActive, routerGeneral)
 
     app.get('/*', (req, res) => {
 
-        res.sendFile(__dirname + './dist/index.html')
+        res.sendFile(path.join(__dirname,'./dist/index.html'))
 
     })
 
