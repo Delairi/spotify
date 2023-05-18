@@ -20,9 +20,18 @@ const main = async () => {
     await ModelSpotifyQuery().then(() => console.log('Model Spotify Query created')).catch(err => console.log(err));
     const app = express()
     app.use(responseTime())
-    app.use(cors({
-        origin: 'http://localhost:5173'
-    }))
+
+    if (process.env.NODE_ENV == 'production') {
+        app.use(cors({
+            origin: 'https://spotify.delairis.com'
+        }))
+    }else{
+        app.use(cors({
+            origin: 'http://localhost:5173'
+        }))
+    }
+    
+
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.use(express.static(__dirname + './dist'))
