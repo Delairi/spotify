@@ -16,6 +16,7 @@ services:
       - CLIENT_SECRET_SPOTIFY=CLIENT_SECRET_SPOTIFY
       - DATABASE_URL=DATABASE_URL
       - REDIS_URL=REDIS_URL
+      - REDIS_PORT=REDIS_PORT
     command: npm start
 
   redis:
